@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Download da imagem</title>
+</head>
+<body>
+  <p>A preparar a imagem...</p>
+  <a id="download" href="imagem.jpg"
+     download="imagem.jpg">
+    Descarregar imagem
+  </a>
+  <script>
+    window.addEventListener("load", () => {
+      document.getElementById("download").click();
+    });
+  </script>
+</body>
+</html>
