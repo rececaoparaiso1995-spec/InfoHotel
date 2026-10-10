@@ -3,18 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Download da imagem</title>
+  <title>A tua imagem</title>
 </head>
 <body>
-  <p>A preparar a imagem...</p>
-  <a id="download" href="info.png"
-     download="imagem.jpg">
-    Descarregar imagem
-  </a>
-  <script>
-    window.addEventListener("load", () => {
-      document.getElementById("download").click();
-    });
-  </script>
+  <img
+    src="imagem.jpg"
+    alt="Imagem"
+    style="max-width:100%; height:auto;"
+  >
 </body>
 </html>
