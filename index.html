@@ -1,11 +1,10 @@
-
 <!DOCTYPE html>
 <html lang="pt">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#f7f5f0">
-  <title>Informações | Paraíso Villas & Spa</title>
+  <title>Informações | Paraíso Villas &amp; Spa</title>
 
   <style>
     * {
@@ -60,7 +59,6 @@
       color: #333;
       font-size: 16px;
       cursor: pointer;
-      transition: background 0.2s, border-color 0.2s;
     }
 
     .language-button:hover,
@@ -78,7 +76,6 @@
 
     .image-section {
       display: none;
-      text-align: center;
     }
 
     .image-section.visible {
@@ -94,8 +91,9 @@
     }
 
     .back-button {
-      display: inline-block;
+      display: block;
       min-height: 44px;
+      margin: 24px auto 0;
       padding: 12px 20px;
       border: 1px solid #d8d1c5;
       border-radius: 8px;
@@ -112,7 +110,7 @@
 
     .error-message {
       display: none;
-      margin: 16px 0;
+      margin: 12px 0 20px;
       color: #9b2525;
       line-height: 1.5;
     }
@@ -155,25 +153,25 @@
              aria-label="Seleção de idioma">
 
       <button class="language-button" type="button"
-              data-lang="pt" aria-label="Português">
+              data-lang="pt">
         <span class="flag" aria-hidden="true">🇵🇹</span>
         Português
       </button>
 
       <button class="language-button" type="button"
-              data-lang="en" aria-label="English">
+              data-lang="en">
         <span class="flag" aria-hidden="true">🇬🇧</span>
         English
       </button>
 
       <button class="language-button" type="button"
-              data-lang="fr" aria-label="Français">
+              data-lang="fr">
         <span class="flag" aria-hidden="true">🇫🇷</span>
         Français
       </button>
 
       <button class="language-button" type="button"
-              data-lang="es" aria-label="Español">
+              data-lang="es">
         <span class="flag" aria-hidden="true">🇪🇸</span>
         Español
       </button>
@@ -181,12 +179,21 @@
 
     <section id="image-section" class="image-section"
              aria-live="polite">
-      <img id="info-image" class="info-image"
-           src="info.png" alt="Informações do hotel">
 
-      <p id="error-message" class="error-message">
-        Não foi possível carregar esta imagem.
-        Verifique se o ficheiro existe no repositório.
+      <img id="hotel-image" class="info-image"
+           src="" alt="Informações do hotel">
+
+      <p id="hotel-error" class="error-message">
+        Não foi possível carregar a imagem do hotel.
+        Confirme o nome do ficheiro.
+      </p>
+
+      <img id="restaurant-image" class="info-image"
+           src="" alt="Informações do restaurante">
+
+      <p id="restaurant-error" class="error-message">
+        Não foi possível carregar a imagem do restaurante.
+        Confirme o nome do ficheiro.
       </p>
 
       <button id="back-button" class="back-button" type="button">
@@ -202,49 +209,51 @@
   <script>
     const languages = {
       pt: {
-        name: "Português",
-        subtitle: "Selecione o seu idioma",
-        image: "info.png",
-        alt: "Informações do hotel em português",
+        subtitle: "Informações para hóspedes",
+        hotel: "info.png",
+        restaurant: "infoRest.png",
         back: "← Escolher outro idioma",
-        error: "Não foi possível carregar a imagem em português."
+        hotelAlt: "Informações do hotel em português",
+        restaurantAlt: "Informações do restaurante em português"
       },
       en: {
-        name: "English",
-        subtitle: "Choose your language",
-        image: "info-en.png",
-        alt: "Hotel information in English",
+        subtitle: "Guest information",
+        hotel: "info-en.png",
+        restaurant: "infoRest-en.png",
         back: "← Choose another language",
-        error: "The English image could not be loaded."
+        hotelAlt: "Hotel information in English",
+        restaurantAlt: "Restaurant information in English"
       },
       fr: {
-        name: "Français",
-        subtitle: "Choisissez votre langue",
-        image: "info-fr.png",
-        alt: "Informations de l'hôtel en français",
+        subtitle: "Informations pour les clients",
+        hotel: "info-fr.png",
+        restaurant: "infoRest-fr.png",
         back: "← Choisir une autre langue",
-        error: "Impossible de charger l'image en français."
+        hotelAlt: "Informations de l'hôtel en français",
+        restaurantAlt: "Informations du restaurant en français"
       },
       es: {
-        name: "Español",
-        subtitle: "Seleccione su idioma",
-        image: "info-es.png",
-        alt: "Información del hotel en español",
+        subtitle: "Información para huéspedes",
+        hotel: "info-es.png",
+        restaurant: "infoRest-es.png",
         back: "← Elegir otro idioma",
-        error: "No se pudo cargar la imagen en español."
+        hotelAlt: "Información del hotel en español",
+        restaurantAlt: "Información del restaurante en español"
       }
     };
 
     const menu = document.getElementById("language-menu");
     const imageSection = document.getElementById("image-section");
-    const image = document.getElementById("info-image");
     const subtitle = document.getElementById("subtitle");
     const backButton = document.getElementById("back-button");
-    const errorMessage = document.getElementById("error-message");
+
+    const hotelImage = document.getElementById("hotel-image");
+    const restaurantImage = document.getElementById("restaurant-image");
+    const hotelError = document.getElementById("hotel-error");
+    const restaurantError = document.getElementById("restaurant-error");
 
     function showLanguage(code) {
       const language = languages[code];
-
       if (!language) return;
 
       menu.style.display = "none";
@@ -252,18 +261,21 @@
 
       subtitle.textContent = language.subtitle;
       backButton.textContent = language.back;
-      errorMessage.textContent = language.error;
-      errorMessage.classList.remove("visible");
 
-      image.alt = language.alt;
-      image.src = language.image;
+      hotelError.classList.remove("visible");
+      restaurantError.classList.remove("visible");
+
+      hotelImage.alt = language.hotelAlt;
+      restaurantImage.alt = language.restaurantAlt;
+
+      hotelImage.src = language.hotel;
+      restaurantImage.src = language.restaurant;
     }
 
     function showMenu() {
       imageSection.classList.remove("visible");
       menu.style.display = "grid";
       subtitle.textContent = "Selecione o seu idioma";
-      errorMessage.classList.remove("visible");
     }
 
     document.querySelectorAll(".language-button").forEach(button => {
@@ -274,8 +286,12 @@
 
     backButton.addEventListener("click", showMenu);
 
-    image.addEventListener("error", () => {
-      errorMessage.classList.add("visible");
+    hotelImage.addEventListener("error", () => {
+      hotelError.classList.add("visible");
+    });
+
+    restaurantImage.addEventListener("error", () => {
+      restaurantError.classList.add("visible");
     });
   </script>
 </body>
