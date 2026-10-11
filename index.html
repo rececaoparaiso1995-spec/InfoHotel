@@ -1,210 +1,107 @@
+
 <!DOCTYPE html>
 <html lang="pt">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#f7f5f0">
-  <title>Informações | Paraíso Villas &amp; Spa</title>
+  <title>Paraíso Villas & Spa - Informações</title>
 
   <style>
-    * {
-      box-sizing: border-box;
-    }
-
     body {
-      margin: 0;
-      padding: 24px 16px;
-      font-family: Arial, Helvetica, sans-serif;
-      background: #f7f5f0;
+      font-family: Arial, sans-serif;
+      background-color: #f7f5f0;
       color: #333;
-    }
-
-    .container {
-      width: 100%;
-      max-width: 600px;
-      margin: 0 auto;
-    }
-
-    header {
       text-align: center;
-      margin-bottom: 28px;
+      margin: 0;
+      padding: 20px;
     }
 
     h1 {
-      margin: 0 0 10px;
-      font-size: clamp(23px, 5vw, 32px);
-      font-weight: 500;
-      letter-spacing: 0.5px;
+      font-size: 25px;
+      margin-bottom: 10px;
     }
 
-    header p {
-      margin: 0;
-      color: #666;
-      font-size: 16px;
-      line-height: 1.5;
+    p {
+      margin-bottom: 25px;
     }
 
     .languages {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
       gap: 12px;
+      margin-top: 30px;
     }
 
-    .language-button {
-      min-height: 64px;
-      padding: 14px 10px;
-      border: 1px solid #d8d1c5;
-      border-radius: 10px;
-      background: #fff;
-      color: #333;
-      font-size: 16px;
+    button {
+      width: 100%;
+      max-width: 320px;
+      padding: 15px;
+      font-size: 17px;
+      background-color: #806b4f;
+      color: white;
+      border: none;
+      border-radius: 6px;
       cursor: pointer;
     }
 
-    .language-button:hover,
-    .language-button:focus-visible {
-      background: #eee8dc;
-      border-color: #a99a80;
-      outline: none;
+    button:hover {
+      background-color: #66543e;
     }
 
-    .flag {
-      display: block;
-      margin-bottom: 6px;
-      font-size: 25px;
+    .images {
+      max-width: 600px;
+      margin: 25px auto;
     }
 
-    .image-section {
-      display: none;
-    }
-
-    .image-section.visible {
-      display: block;
-    }
-
-    .info-image {
+    .images img {
       display: block;
       width: 100%;
       height: auto;
-      margin: 0 auto 20px;
+      margin-bottom: 20px;
       border-radius: 4px;
     }
 
-    .back-button {
-      display: block;
-      min-height: 44px;
-      margin: 24px auto 0;
-      padding: 12px 20px;
-      border: 1px solid #d8d1c5;
-      border-radius: 8px;
-      background: #fff;
-      color: #333;
-      font-size: 15px;
-      cursor: pointer;
-    }
-
-    .back-button:hover,
-    .back-button:focus-visible {
-      background: #eee8dc;
-    }
-
-    .error-message {
+    .hidden {
       display: none;
-      margin: 12px 0 20px;
-      color: #9b2525;
-      line-height: 1.5;
     }
 
-    .error-message.visible {
-      display: block;
-    }
-
-    footer {
-      margin-top: 30px;
-      text-align: center;
-      color: #777;
-      font-size: 12px;
-    }
-
-    @media (max-width: 360px) {
-      body {
-        padding: 20px 12px;
-      }
-
-      .languages {
-        gap: 8px;
-      }
-
-      .language-button {
-        font-size: 14px;
-      }
+    .back-button {
+      margin-top: 10px;
+      background-color: #555;
     }
   </style>
 </head>
 
 <body>
-  <main class="container">
-    <header>
-      <h1>Paraíso Villas &amp; Spa</h1>
-      <p id="subtitle">Selecione o seu idioma</p>
-    </header>
 
-    <section id="language-menu" class="languages"
-             aria-label="Seleção de idioma">
+  <h1>Paraíso Villas & Spa</h1>
 
-      <button class="language-button" type="button"
-              data-lang="pt">
-        <span class="flag" aria-hidden="true">🇵🇹</span>
-        Português
-      </button>
+  <div id="languageMenu">
+    <p>Escolha o seu idioma / Choose your language</p>
 
-      <button class="language-button" type="button"
-              data-lang="en">
-        <span class="flag" aria-hidden="true">🇬🇧</span>
-        English
-      </button>
+    <div class="languages">
+      <button onclick="showLanguage('pt')">🇵🇹 Português</button>
+      <button onclick="showLanguage('en')">🇬🇧 English</button>
+      <button onclick="showLanguage('fr')">🇫🇷 Français</button>
+      <button onclick="showLanguage('es')">🇪🇸 Español</button>
+    </div>
+  </div>
 
-      <button class="language-button" type="button"
-              data-lang="fr">
-        <span class="flag" aria-hidden="true">🇫🇷</span>
-        Français
-      </button>
+  <div id="information" class="hidden">
+    <h1 id="subtitle"></h1>
 
-      <button class="language-button" type="button"
-              data-lang="es">
-        <span class="flag" aria-hidden="true">🇪🇸</span>
-        Español
-      </button>
-    </section>
+    <div class="images">
+      <img id="hotelImage" src="" alt="Informações do hotel">
+      <img id="restaurantImage" src="" alt="Informações do restaurante">
+      <img id="gymImage" src="" alt="Informações do ginásio">
+    </div>
 
-    <section id="image-section" class="image-section"
-             aria-live="polite">
-
-      <img id="hotel-image" class="info-image"
-           src="" alt="Informações do hotel">
-
-      <p id="hotel-error" class="error-message">
-        Não foi possível carregar a imagem do hotel.
-        Confirme o nome do ficheiro.
-      </p>
-
-      <img id="restaurant-image" class="info-image"
-           src="" alt="Informações do restaurante">
-
-      <p id="restaurant-error" class="error-message">
-        Não foi possível carregar a imagem do restaurante.
-        Confirme o nome do ficheiro.
-      </p>
-
-      <button id="back-button" class="back-button" type="button">
-        ← Escolher outro idioma
-      </button>
-    </section>
-
-    <footer>
-      Paraíso Villas &amp; Spa
-    </footer>
-  </main>
+    <button class="back-button" id="backButton"
+      onclick="showMenu()">
+      ← Escolher outro idioma
+    </button>
+  </div>
 
   <script>
     const languages = {
@@ -212,87 +109,76 @@
         subtitle: "Informações para hóspedes",
         hotel: "info.png",
         restaurant: "infoRest.png",
+        gym: "infoGym.png",
         back: "← Escolher outro idioma",
         hotelAlt: "Informações do hotel em português",
-        restaurantAlt: "Informações do restaurante em português"
+        restaurantAlt: "Informações do restaurante em português",
+        gymAlt: "Informações do ginásio em português"
       },
+
       en: {
         subtitle: "Guest information",
         hotel: "info-en.png",
         restaurant: "infoRest-en.png",
+        gym: "infoGym-en.png",
         back: "← Choose another language",
         hotelAlt: "Hotel information in English",
-        restaurantAlt: "Restaurant information in English"
+        restaurantAlt: "Restaurant information in English",
+        gymAlt: "Gym information in English"
       },
+
       fr: {
         subtitle: "Informations pour les clients",
         hotel: "info-fr.png",
         restaurant: "infoRest-fr.png",
+        gym: "infoGym-fr.png",
         back: "← Choisir une autre langue",
         hotelAlt: "Informations de l'hôtel en français",
-        restaurantAlt: "Informations du restaurant en français"
+        restaurantAlt: "Informations du restaurant en français",
+        gymAlt: "Informations de la salle de sport en français"
       },
+
       es: {
         subtitle: "Información para huéspedes",
         hotel: "info-es.png",
         restaurant: "infoRest-es.png",
+        gym: "infoGym-es.png",
         back: "← Elegir otro idioma",
         hotelAlt: "Información del hotel en español",
-        restaurantAlt: "Información del restaurante en español"
+        restaurantAlt: "Información del restaurante en español",
+        gymAlt: "Información del gimnasio en español"
       }
     };
 
-    const menu = document.getElementById("language-menu");
-    const imageSection = document.getElementById("image-section");
-    const subtitle = document.getElementById("subtitle");
-    const backButton = document.getElementById("back-button");
+    function showLanguage(language) {
+      const selected = languages[language];
 
-    const hotelImage = document.getElementById("hotel-image");
-    const restaurantImage = document.getElementById("restaurant-image");
-    const hotelError = document.getElementById("hotel-error");
-    const restaurantError = document.getElementById("restaurant-error");
+      document.getElementById("languageMenu").classList.add("hidden");
+      document.getElementById("information").classList.remove("hidden");
 
-    function showLanguage(code) {
-      const language = languages[code];
-      if (!language) return;
+      document.getElementById("subtitle").textContent = selected.subtitle;
 
-      menu.style.display = "none";
-      imageSection.classList.add("visible");
+      document.getElementById("hotelImage").src = selected.hotel;
+      document.getElementById("hotelImage").alt = selected.hotelAlt;
 
-      subtitle.textContent = language.subtitle;
-      backButton.textContent = language.back;
+      document.getElementById("restaurantImage").src = selected.restaurant;
+      document.getElementById("restaurantImage").alt = selected.restaurantAlt;
 
-      hotelError.classList.remove("visible");
-      restaurantError.classList.remove("visible");
+      document.getElementById("gymImage").src = selected.gym;
+      document.getElementById("gymImage").alt = selected.gymAlt;
 
-      hotelImage.alt = language.hotelAlt;
-      restaurantImage.alt = language.restaurantAlt;
+      document.getElementById("backButton").textContent = selected.back;
 
-      hotelImage.src = language.hotel;
-      restaurantImage.src = language.restaurant;
+      document.documentElement.lang = language;
+      window.scrollTo(0, 0);
     }
 
     function showMenu() {
-      imageSection.classList.remove("visible");
-      menu.style.display = "grid";
-      subtitle.textContent = "Selecione o seu idioma";
+      document.getElementById("information").classList.add("hidden");
+      document.getElementById("languageMenu").classList.remove("hidden");
+      window.scrollTo(0, 0);
     }
-
-    document.querySelectorAll(".language-button").forEach(button => {
-      button.addEventListener("click", () => {
-        showLanguage(button.dataset.lang);
-      });
-    });
-
-    backButton.addEventListener("click", showMenu);
-
-    hotelImage.addEventListener("error", () => {
-      hotelError.classList.add("visible");
-    });
-
-    restaurantImage.addEventListener("error", () => {
-      restaurantError.classList.add("visible");
-    });
   </script>
+
 </body>
 </html>
