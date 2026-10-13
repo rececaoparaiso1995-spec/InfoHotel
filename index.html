@@ -185,6 +185,62 @@
   </style>
 </head>
 <body>
+  <!-- Cola este bloco no teu index.html, onde quiseres que o botão apareça -->
+<!-- Substitui WORKER_URL pelo endereço do teu Worker -->
+
+<div id="chamar-rececao" style="max-width:420px;margin:24px auto;padding:16px;border:1px solid #ddd;border-radius:12px;text-align:center;font-family:sans-serif;">
+  <h3 style="margin-top:0;">Precisa de ajuda?</h3>
+  <p>Não está ninguém na receção? Chame um colaborador.</p>
+
+  <input id="rececao-quarto" type="text" maxlength="20"
+         placeholder="Nº do quarto ou nome (opcional)"
+         style="width:90%;padding:10px;margin-bottom:12px;border:1px solid #ccc;border-radius:8px;font-size:16px;">
+
+  <button id="rececao-botao"
+          style="width:90%;padding:14px;font-size:18px;border:none;border-radius:8px;background:#1a73e8;color:#fff;cursor:pointer;">
+    🔔 Chamar rececionista
+  </button>
+
+  <p id="rececao-estado" style="min-height:24px;margin:12px 0 0;"></p>
+</div>
+
+<script>
+  const WORKER_URL = "https://chamar-rececao.rececaoparaiso1995.workers.dev";
+  const ESPERA_MS = 2 * 60 * 1000; // 2 minutos entre chamadas
+
+  const botao = document.getElementById("rececao-botao");
+  const estado = document.getElementById("rececao-estado");
+  const campoQuarto = document.getElementById("rececao-quarto");
+
+  botao.addEventListener("click", async () => {
+    let ultima = 0;
+    try { ultima = Number(localStorage.getItem("rececao-ultima") || 0); } catch (e) {}
+
+    if (Date.now() - ultima < ESPERA_MS) {
+      estado.textContent = "Já chamámos a receção. Aguarde um momento, por favor.";
+      return;
+    }
+
+    botao.disabled = true;
+    estado.textContent = "A enviar...";
+
+    try {
+      const r = await fetch(WORKER_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ quarto: campoQuarto.value }),
+      });
+      if (!r.ok) throw new Error("falhou");
+      try { localStorage.setItem("rececao-ultima", String(Date.now())); } catch (e) {}
+      estado.textContent = "✅ Já avisámos a receção. Aguarde um momento, por favor.";
+    } catch (e) {
+      estado.textContent = "Não foi possível avisar. Por favor, tente novamente dentro de instantes.";
+    }
+
+    setTimeout(() => { botao.disabled = false; }, 5000);
+  });
+</script>
+
   <main>
     <section id="languageMenu" class="language-page">
       <img class="brand-logo" src="logo-paraiso.png" alt="Paraíso Restaurant 1995 Villas & Spa">
