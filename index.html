@@ -204,42 +204,6 @@
   <p id="rececao-estado" style="min-height:24px;margin:12px 0 0;"></p>
 </div>
 
-<script>
-  const WORKER_URL = "https://chamar-rececao.rececaoparaiso1995.workers.dev";
-  const ESPERA_MS = 2 * 60 * 1000; // 2 minutos entre chamadas
-
-  const botao = document.getElementById("rececao-botao");
-  const estado = document.getElementById("rececao-estado");
-  const campoQuarto = document.getElementById("rececao-quarto");
-
-  botao.addEventListener("click", async () => {
-    let ultima = 0;
-    try { ultima = Number(localStorage.getItem("rececao-ultima") || 0); } catch (e) {}
-
-    if (Date.now() - ultima < ESPERA_MS) {
-      estado.textContent = "Já chamámos a receção. Aguarde um momento, por favor.";
-      return;
-    }
-
-    botao.disabled = true;
-    estado.textContent = "A enviar...";
-
-    try {
-      const r = await fetch(WORKER_URL, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ quarto: campoQuarto.value }),
-      });
-      if (!r.ok) throw new Error("erro " + r.status);
-      try { localStorage.setItem("rececao-ultima", String(Date.now())); } catch (e) {}
-      estado.textContent = "✅ Já avisámos a receção. Aguarde um momento, por favor.";
-    } catch (e) {
-      estado.textContent = "Não foi possível avisar (" + e.message + "). Por favor, tente novamente dentro de instantes.";
-    }
-
-    setTimeout(() => { botao.disabled = false; }, 5000);
-  });
-</script>
 
   <main>
     <section id="languageMenu" class="language-page">
@@ -363,5 +327,42 @@
       window.scrollTo(0, 0);
     }
   </script>
+  <script>
+  const WORKER_URL = "https://chamar-rececao.rececaoparaiso1995.workers.dev";
+  const ESPERA_MS = 2 * 60 * 1000; // 2 minutos entre chamadas
+
+  const botao = document.getElementById("rececao-botao");
+  const estado = document.getElementById("rececao-estado");
+  const campoQuarto = document.getElementById("rececao-quarto");
+
+  botao.addEventListener("click", async () => {
+    let ultima = 0;
+    try { ultima = Number(localStorage.getItem("rececao-ultima") || 0); } catch (e) {}
+
+    if (Date.now() - ultima < ESPERA_MS) {
+      estado.textContent = "Já chamámos a receção. Aguarde um momento, por favor.";
+      return;
+    }
+
+    botao.disabled = true;
+    estado.textContent = "A enviar...";
+
+    try {
+      const r = await fetch(WORKER_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ quarto: campoQuarto.value }),
+      });
+      if (!r.ok) throw new Error("erro " + r.status);
+      try { localStorage.setItem("rececao-ultima", String(Date.now())); } catch (e) {}
+      estado.textContent = "✅ Já avisámos a receção. Aguarde um momento, por favor.";
+    } catch (e) {
+      estado.textContent = "Não foi possível avisar (" + e.message + "). Por favor, tente novamente dentro de instantes.";
+    }
+
+    setTimeout(() => { botao.disabled = false; }, 5000);
+  });
+</script>
+
 </body>
 </html>
