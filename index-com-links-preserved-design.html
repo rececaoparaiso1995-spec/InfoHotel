@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f4eee2">
+  <title>Paraíso Villas & Spa - Informações</title>
+  <style>
+    :root {
+      --cream: #f4eee2;
+      --terracotta: #ad704d;
+      --terracotta-hover: #965d3e;
+      --text: #252321;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--cream);
+      color: var(--text);
+      text-align: center;
+      margin: 0;
+      min-height: 100vh;
+      padding: 0 24px 40px;
+    }
+
+    .language-page {
+      width: 100%;
+      max-width: 900px;
+      margin: 0 auto;
+      padding-top: 52px;
+    }
+
+    .brand-logo {
+      display: block;
+      width: min(100%, 640px);
+      height: auto;
+      margin: 0 auto;
+      mix-blend-mode: multiply;
+    }
+
+    .intro {
+      margin: 82px auto 0;
+      font-size: clamp(17px, 2.5vw, 24px);
+      line-height: 1.38;
+      font-weight: 600;
+    }
+
+    .intro p { margin: 0; }
+
+    .languages {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 42px 64px;
+      max-width: 800px;
+      margin: 116px auto 0;
+    }
+
+    .language-button {
+      min-height: 166px;
+      width: 100%;
+      border: 0;
+      border-radius: 13px;
+      padding: 22px 12px 18px;
+      background: var(--terracotta);
+      color: #21150f;
+      font: inherit;
+      font-size: clamp(20px, 3.2vw, 34px);
+      line-height: 1.2;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      box-shadow: 0 1px 2px rgb(0 0 0 / 8%);
+      transition: background-color .15s ease, transform .15s ease;
+    }
+
+    .language-button:hover {
+      background: var(--terracotta-hover);
+      color: #fffaf5;
+    }
+
+    .language-button:focus-visible,
+    .back-button:focus-visible {
+      outline: 3px solid #28211d;
+      outline-offset: 4px;
+    }
+
+    .flag {
+      font-size: 1.65em;
+      line-height: 1;
+    }
+
+    .hidden { display: none !important; }
+
+    #information {
+      max-width: 760px;
+      margin: 0 auto;
+      padding-top: 32px;
+    }
+
+    #subtitle {
+      font-size: 25px;
+      margin: 0 0 25px;
+    }
+
+    .images {
+      max-width: 600px;
+      margin: 25px auto;
+    }
+
+    .images img {
+      display: block;
+      width: 100%;
+      height: auto;
+      margin-bottom: 20px;
+      border-radius: 4px;
+    }
+
+    .download-link {
+      display: inline-block;
+      margin: -5px auto 24px;
+      color: var(--terracotta-hover);
+      font-size: 16px;
+      font-weight: 600;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    .download-link:hover {
+      color: var(--text);
+    }
+
+    .download-link:focus-visible {
+      outline: 3px solid #28211d;
+      outline-offset: 4px;
+    }
+
+    .back-button {
+      margin: 10px auto 30px;
+      padding: 14px 20px;
+      background: #555;
+      color: white;
+      border: 0;
+      border-radius: 6px;
+      font-size: 17px;
+      cursor: pointer;
+    }
+
+    .back-button:hover { background: #3d3d3d; }
+
+    @media (max-width: 600px) {
+      body { padding: 0 18px 28px; }
+      .language-page { padding-top: 30px; }
+      .brand-logo { width: 100%; }
+      .intro { margin-top: 55px; }
+      .languages {
+        gap: 22px 18px;
+        margin-top: 72px;
+      }
+      .language-button {
+        min-height: 126px;
+        border-radius: 10px;
+        padding: 15px 6px;
+        font-size: clamp(17px, 4.5vw, 23px);
+      }
+      .flag { font-size: 1.55em; }
+    }
+
+    @media (max-width: 350px) {
+      .languages { gap: 14px 10px; }
+      .language-button { min-height: 112px; font-size: 16px; }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <section id="languageMenu" class="language-page">
+      <img class="brand-logo" src="logo-paraiso.png" alt="Paraíso Restaurant 1995 Villas & Spa">
+
+      <div class="intro">
+        <p>Informação/Information</p>
+        <p>Escolha a sua língua/Choose your language</p>
+      </div>
+
+      <div class="languages">
+        <button class="language-button" onclick="showLanguage('pt')">
+          <span>Português</span><span class="flag" aria-hidden="true">🇵🇹</span>
+        </button>
+        <button class="language-button" onclick="showLanguage('en')">
+          <span>English</span><span class="flag" aria-hidden="true">🇬🇧</span>
+        </button>
+        <button class="language-button" onclick="showLanguage('fr')">
+          <span>Français</span><span class="flag" aria-hidden="true">🇫🇷</span>
+        </button>
+        <button class="language-button" onclick="showLanguage('es')">
+          <span>Español</span><span class="flag" aria-hidden="true">🇪🇸</span>
+        </button>
+      </div>
+    </section>
+
+    <section id="information" class="hidden">
+      <h1 id="subtitle"></h1>
+      <div class="images">
+        <img id="hotelImage" src="" alt="Informações do hotel">
+        <img id="restaurantImage" src="" alt="Informações do restaurante">
+        <a id="restaurantDownload" class="download-link" href="carta_rest.pdf" download>Descarregue a carta</a>
+        <img id="gymImage" src="" alt="Informações do ginásio">
+        <a id="spaDownload" class="download-link" href="carta_spa.pdf" download>Descarregue a lista de massagens</a>
+      </div>
+      <button class="back-button" id="backButton" onclick="showMenu()">← Escolher outro idioma</button>
+    </section>
+  </main>
+
+  <script>
+    const languages = {
+      pt: {
+        subtitle: "Informações para hóspedes",
+        hotel: "info.png",
+        restaurant: "infoRest.png",
+        gym: "infoGym.png",
+        back: "← Escolher outro idioma",
+        restaurantDownload: "Descarregue a carta",
+        spaDownload: "Descarregue a lista de massagens",
+        hotelAlt: "Informações do hotel em português",
+        restaurantAlt: "Informações do restaurante em português",
+        gymAlt: "Informações do ginásio em português"
+      },
+      en: {
+        subtitle: "Guest information",
+        hotel: "info-en.png",
+        restaurant: "infoRest-en.png",
+        gym: "infoGym-en.png",
+        back: "← Choose another language",
+        restaurantDownload: "Download the menu",
+        spaDownload: "Download the massage list",
+        hotelAlt: "Hotel information in English",
+        restaurantAlt: "Restaurant information in English",
+        gymAlt: "Gym information in English"
+      },
+      fr: {
+        subtitle: "Informations pour les clients",
+        hotel: "info-fr.png",
+        restaurant: "infoRest-fr.png",
+        gym: "infoGym-fr.png",
+        back: "← Choisir une autre langue",
+        restaurantDownload: "Télécharger la carte",
+        spaDownload: "Télécharger la liste des massages",
+        hotelAlt: "Informations de l'hôtel en français",
+        restaurantAlt: "Informations du restaurant en français",
+        gymAlt: "Informations de la salle de sport en français"
+      },
+      es: {
+        subtitle: "Información para huéspedes",
+        hotel: "info-es.png",
+        restaurant: "infoRest-es.png",
+        gym: "infoGym-es.png",
+        back: "← Elegir otro idioma",
+        restaurantDownload: "Descargar la carta",
+        spaDownload: "Descargar la lista de masajes",
+        hotelAlt: "Información del hotel en español",
+        restaurantAlt: "Información del restaurante en español",
+        gymAlt: "Información del gimnasio en español"
+      }
+    };
+
+    function showLanguage(language) {
+      const selected = languages[language];
+      if (!selected) return;
+
+      document.getElementById("languageMenu").classList.add("hidden");
+      document.getElementById("information").classList.remove("hidden");
+      document.getElementById("subtitle").textContent = selected.subtitle;
+
+      document.getElementById("hotelImage").src = selected.hotel;
+      document.getElementById("hotelImage").alt = selected.hotelAlt;
+      document.getElementById("restaurantImage").src = selected.restaurant;
+      document.getElementById("restaurantImage").alt = selected.restaurantAlt;
+      document.getElementById("gymImage").src = selected.gym;
+      document.getElementById("gymImage").alt = selected.gymAlt;
+      document.getElementById("restaurantDownload").textContent = selected.restaurantDownload;
+      document.getElementById("spaDownload").textContent = selected.spaDownload;
+      document.getElementById("backButton").textContent = selected.back;
+
+      document.documentElement.lang = language;
+      window.scrollTo(0, 0);
+    }
+
+    function showMenu() {
+      document.getElementById("information").classList.add("hidden");
+      document.getElementById("languageMenu").classList.remove("hidden");
+      document.documentElement.lang = "pt";
+      window.scrollTo(0, 0);
+    }
+  </script>
+</body>
+</html>
