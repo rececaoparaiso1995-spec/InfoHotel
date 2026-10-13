@@ -185,7 +185,7 @@
   </style>
 </head>
 <body>
-  <!-- Cola este bloco no teu index.html, onde quiseres que o botão apareça -->
+<!-- Cola este bloco no teu index.html, onde quiseres que o botão apareça -->
 <!-- Substitui WORKER_URL pelo endereço do teu Worker -->
 
 <div id="chamar-rececao" style="max-width:420px;margin:24px auto;padding:16px;border:1px solid #ddd;border-radius:12px;text-align:center;font-family:sans-serif;">
@@ -205,7 +205,7 @@
 </div>
 
 <script>
-  const WORKER_URL = "https://chamar-rececao.rececaoparaiso1995.workers.dev";
+  const WORKER_URL = "https://WORKER_URL.workers.dev";
   const ESPERA_MS = 2 * 60 * 1000; // 2 minutos entre chamadas
 
   const botao = document.getElementById("rececao-botao");
@@ -230,11 +230,11 @@
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ quarto: campoQuarto.value }),
       });
-      if (!r.ok) throw new Error("falhou");
+      if (!r.ok) throw new Error("erro " + r.status);
       try { localStorage.setItem("rececao-ultima", String(Date.now())); } catch (e) {}
       estado.textContent = "✅ Já avisámos a receção. Aguarde um momento, por favor.";
     } catch (e) {
-      estado.textContent = "Não foi possível avisar. Por favor, tente novamente dentro de instantes.";
+      estado.textContent = "Não foi possível avisar (" + e.message + "). Por favor, tente novamente dentro de instantes.";
     }
 
     setTimeout(() => { botao.disabled = false; }, 5000);
