@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="pt">
 <head>
@@ -5,244 +6,474 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#f4eee2">
   <title>Paraíso Villas & Spa - Informações</title>
+
   <style>
     :root {
       --cream: #f4eee2;
       --terracotta: #ad704d;
       --terracotta-hover: #965d3e;
       --text: #252321;
+      --brown: #392719;
+      --muted: #76533b;
+      --line: #d3b79c;
+      --white: #fffaf5;
     }
 
     * { box-sizing: border-box; }
 
+    html { scroll-behavior: smooth; }
+
     body {
-      font-family: Arial, Helvetica, sans-serif;
-      background: var(--cream);
-      color: var(--text);
-      text-align: center;
       margin: 0;
       min-height: 100vh;
-      padding: 0 24px 40px;
+      padding: 0 22px 38px;
+      background: var(--cream);
+      color: var(--text);
+      font-family: Arial, Helvetica, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      text-align: center;
+    }
+
+    button, input { font: inherit; }
+    a { color: inherit; }
+
+    .language-page,
+    #information,
+    .help-card {
+      width: 100%;
+      margin-left: auto;
+      margin-right: auto;
     }
 
     .language-page {
-      width: 100%;
       max-width: 900px;
-      margin: 0 auto;
-      padding-top: 52px;
+      padding-top: 36px;
     }
 
     .brand-logo {
       display: block;
-      width: min(100%, 640px);
+      width: min(100%, 440px);
       height: auto;
       margin: 0 auto;
       mix-blend-mode: multiply;
     }
 
     .intro {
-      margin: 82px auto 0;
-      font-size: clamp(17px, 2.5vw, 24px);
-      line-height: 1.38;
-      font-weight: 600;
+      margin: 48px auto 0;
+      color: var(--brown);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(19px, 2.7vw, 25px);
+      line-height: 1.55;
     }
 
     .intro p { margin: 0; }
 
+    .intro p + p {
+      margin-top: 3px;
+      color: var(--muted);
+      font-size: .82em;
+    }
+
+    .ornament {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 13px;
+      margin: 24px auto 0;
+    }
+
+    .ornament::before,
+    .ornament::after {
+      content: "";
+      width: 48px;
+      height: 1px;
+      background: var(--line);
+    }
+
+    .ornament span {
+      color: var(--terracotta);
+      font-size: 14px;
+    }
+
     .languages {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 42px 64px;
-      max-width: 800px;
-      margin: 116px auto 0;
+      gap: 22px;
+      max-width: 720px;
+      margin: 42px auto 0;
     }
 
     .language-button {
-      min-height: 166px;
-      width: 100%;
-      border: 0;
-      border-radius: 13px;
-      padding: 22px 12px 18px;
-      background: var(--terracotta);
-      color: #21150f;
-      font: inherit;
-      font-size: clamp(20px, 3.2vw, 34px);
-      line-height: 1.2;
-      cursor: pointer;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 10px;
-      box-shadow: 0 1px 2px rgb(0 0 0 / 8%);
-      transition: background-color .15s ease, transform .15s ease;
+      gap: 12px;
+      width: 100%;
+      min-height: 148px;
+      padding: 24px 14px;
+      border: 1px solid var(--line);
+      border-radius: 3px;
+      background: rgba(255, 250, 245, .68);
+      color: var(--brown);
+      font-size: clamp(21px, 3vw, 29px);
+      line-height: 1.2;
+      text-decoration: none;
+      cursor: pointer;
+      box-shadow: 0 5px 18px rgb(57 39 25 / 4%);
+      transition: background-color .18s ease, color .18s ease,
+        border-color .18s ease, transform .18s ease;
     }
 
     .language-button:hover {
-      background: var(--terracotta-hover);
-      color: #fffaf5;
+      background: var(--terracotta);
+      border-color: var(--terracotta);
+      color: var(--white);
+      transform: translateY(-2px);
     }
 
     .events-button {
       grid-column: 1 / -1;
-      min-height: 76px;
       flex-direction: row;
-      gap: 14px;
-      text-decoration: none;
+      gap: 13px;
+      min-height: 68px;
+      padding: 18px 20px;
+      background: var(--terracotta);
+      border-color: var(--terracotta);
+      color: var(--white);
+      font-size: 18px;
+    }
+
+    .events-button:hover {
+      background: var(--terracotta-hover);
+      border-color: var(--terracotta-hover);
+    }
+
+    .flag {
+      font-size: 1.45em;
+      line-height: 1;
     }
 
     .language-button:focus-visible,
-    .back-button:focus-visible {
+    .back-button:focus-visible,
+    .help-button:focus-visible,
+    .download-link:focus-visible,
+    .help-input:focus-visible {
       outline: 3px solid #28211d;
       outline-offset: 4px;
     }
 
-    .flag {
-      font-size: 1.65em;
-      line-height: 1;
+    /* Chamar a receção */
+
+    .help-card {
+      max-width: 720px;
+      margin-top: 28px;
+      padding: 23px 24px 22px;
+      border: 1px solid var(--line);
+      background: rgba(255, 250, 245, .68);
+      text-align: center;
+    }
+
+    .help-card h2 {
+      margin: 0 0 8px;
+      color: var(--brown);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 25px;
+      font-weight: 400;
+    }
+
+    .help-card > p {
+      margin: 0 auto 17px;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .help-input {
+      display: block;
+      width: 100%;
+      max-width: 440px;
+      min-height: 46px;
+      margin: 0 auto 12px;
+      padding: 12px 14px;
+      border: 1px solid #cdb69f;
+      border-radius: 2px;
+      background: #fffdf9;
+      color: var(--text);
+      font-size: 15px;
+    }
+
+    .help-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      width: 100%;
+      max-width: 440px;
+      min-height: 49px;
+      padding: 13px 18px;
+      border: 1px solid var(--terracotta);
+      border-radius: 2px;
+      background: var(--terracotta);
+      color: var(--white);
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color .18s ease, transform .18s ease;
+    }
+
+    .help-button:hover {
+      background: var(--terracotta-hover);
+      transform: translateY(-1px);
+    }
+
+    .help-button:disabled {
+      opacity: .65;
+      cursor: wait;
+      transform: none;
+    }
+
+    #rececao-estado {
+      min-height: 24px;
+      margin: 12px 0 0;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.5;
     }
 
     .hidden { display: none !important; }
 
+    /* Página de informações */
+
     #information {
-      max-width: 760px;
-      margin: 0 auto;
-      padding-top: 32px;
+      max-width: 800px;
+      padding-top: 36px;
     }
 
     #subtitle {
-      font-size: 25px;
-      margin: 0 0 25px;
+      margin: 0 0 27px;
+      color: var(--brown);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(30px, 5vw, 42px);
+      font-weight: 400;
+      line-height: 1.2;
     }
 
     .images {
-      max-width: 600px;
-      margin: 25px auto;
+      max-width: 680px;
+      margin: 0 auto;
+      padding: clamp(15px, 3vw, 28px);
+      border: 1px solid var(--line);
+      background: rgba(255, 250, 245, .55);
     }
 
     .images img {
       display: block;
       width: 100%;
       height: auto;
-      margin-bottom: 20px;
-      border-radius: 4px;
+      margin: 0 auto 20px;
+      border: 1px solid rgb(211 183 156 / 45%);
+      border-radius: 2px;
     }
 
     .download-link {
       display: inline-block;
-      margin: -5px auto 24px;
+      margin: -4px auto 25px;
+      padding: 11px 17px;
+      border: 1px solid var(--terracotta);
       color: var(--terracotta-hover);
-      font-size: 16px;
+      font-size: 14px;
       font-weight: 600;
-      text-decoration: underline;
-      text-underline-offset: 3px;
+      text-decoration: none;
+      transition: background-color .18s ease, color .18s ease;
     }
 
     .download-link:hover {
-      color: var(--text);
-    }
-
-    .download-link:focus-visible {
-      outline: 3px solid #28211d;
-      outline-offset: 4px;
+      background: var(--terracotta);
+      color: var(--white);
     }
 
     .back-button {
-      margin: 10px auto 30px;
-      padding: 14px 20px;
-      background: #555;
-      color: white;
-      border: 0;
-      border-radius: 6px;
-      font-size: 17px;
+      margin: 25px auto 10px;
+      padding: 13px 19px;
+      border: 1px solid var(--line);
+      border-radius: 2px;
+      background: transparent;
+      color: var(--brown);
+      font-size: 14px;
       cursor: pointer;
+      transition: background-color .18s ease, color .18s ease;
     }
 
-    .back-button:hover { background: #3d3d3d; }
+    .back-button:hover {
+      background: var(--brown);
+      color: var(--white);
+    }
 
     @media (max-width: 600px) {
-      body { padding: 0 18px 28px; }
-      .language-page { padding-top: 30px; }
-      .brand-logo { width: 100%; }
-      .intro { margin-top: 55px; }
+      body { padding: 0 15px 28px; }
+
+      .language-page { padding-top: 25px; }
+
+      .brand-logo { width: min(100%, 320px); }
+
+      .intro {
+        margin-top: 35px;
+        font-size: 20px;
+      }
+
       .languages {
-        gap: 22px 18px;
-        margin-top: 72px;
+        gap: 13px;
+        margin-top: 30px;
       }
+
       .language-button {
-        min-height: 126px;
-        border-radius: 10px;
-        padding: 15px 6px;
+        min-height: 116px;
+        padding: 17px 7px;
         font-size: clamp(17px, 4.5vw, 23px);
+        gap: 10px;
       }
-      .flag { font-size: 1.55em; }
+
+      .flag { font-size: 1.4em; }
+
+      .events-button {
+        min-height: 58px;
+        font-size: 16px;
+      }
+
+      .help-card {
+        margin-top: 20px;
+        padding: 20px 16px;
+      }
+
+      .help-card h2 { font-size: 23px; }
+
+      #information { padding-top: 27px; }
+
+      #subtitle { margin-bottom: 20px; }
+
+      .images { padding: 12px; }
+
+      .download-link { margin-bottom: 21px; }
     }
 
     @media (max-width: 350px) {
-      .languages { gap: 14px 10px; }
-      .language-button { min-height: 112px; font-size: 16px; }
+      .languages { gap: 10px; }
+
+      .language-button {
+        min-height: 105px;
+        font-size: 16px;
+      }
+
+      .events-button { font-size: 14px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        scroll-behavior: auto !important;
+        transition: none !important;
+      }
     }
   </style>
 </head>
+
 <body>
-<!-- Cola este bloco no teu index.html, onde quiseres que o botão apareça -->
-<!-- Substitui WORKER_URL pelo endereço do teu Worker -->
 
-<div id="chamar-rececao" style="max-width:420px;margin:24px auto;padding:16px;border:1px solid #ddd;border-radius:12px;text-align:center;font-family:sans-serif;">
-  <h3 style="margin-top:0;">Precisa de ajuda?</h3>
-  <p>Não está ninguém na receção? Chame um colaborador.</p>
+  <div id="chamar-rececao" class="help-card">
+    <h2>Precisa de ajuda?</h2>
+    <p>Não está ninguém na receção? Chame um colaborador.</p>
 
-  <input id="rececao-quarto" type="text" maxlength="20"
-         placeholder="Nº do quarto ou nome (opcional)"
-         style="width:90%;padding:10px;margin-bottom:12px;border:1px solid #ccc;border-radius:8px;font-size:16px;">
+    <input
+      id="rececao-quarto"
+      class="help-input"
+      type="text"
+      maxlength="20"
+      placeholder="Nº do quarto ou nome (opcional)"
+      autocomplete="off"
+    >
 
-  <button id="rececao-botao"
-          style="width:90%;padding:14px;font-size:18px;border:none;border-radius:8px;background:#1a73e8;color:#fff;cursor:pointer;">
-    🔔 Chamar rececionista
-  </button>
+    <button id="rececao-botao" class="help-button" type="button">
+      🔔 Chamar rececionista
+    </button>
 
-  <p id="rececao-estado" style="min-height:24px;margin:12px 0 0;"></p>
-</div>
-
+    <p id="rececao-estado" role="status" aria-live="polite"></p>
+  </div>
 
   <main>
     <section id="languageMenu" class="language-page">
-      <img class="brand-logo" src="logo-paraiso.png" alt="Paraíso Restaurant 1995 Villas & Spa">
+      <img
+        class="brand-logo"
+        src="logo-paraiso.png"
+        alt="Paraíso Restaurant 1995 Villas & Spa"
+      >
 
       <div class="intro">
         <p>Informação/Information</p>
         <p>Escolha a sua língua/Choose your language</p>
       </div>
 
+      <div class="ornament" aria-hidden="true">
+        <span>✦</span>
+      </div>
+
       <div class="languages">
         <button class="language-button" onclick="showLanguage('pt')">
-          <span>Português</span><span class="flag" aria-hidden="true">🇵🇹</span>
+          <span>Português</span>
+          <span class="flag" aria-hidden="true">🇵🇹</span>
         </button>
+
         <button class="language-button" onclick="showLanguage('en')">
-          <span>English</span><span class="flag" aria-hidden="true">🇬🇧</span>
+          <span>English</span>
+          <span class="flag" aria-hidden="true">🇬🇧</span>
         </button>
+
         <button class="language-button" onclick="showLanguage('fr')">
-          <span>Français</span><span class="flag" aria-hidden="true">🇫🇷</span>
+          <span>Français</span>
+          <span class="flag" aria-hidden="true">🇫🇷</span>
         </button>
+
         <button class="language-button" onclick="showLanguage('es')">
-          <span>Español</span><span class="flag" aria-hidden="true">🇪🇸</span>
+          <span>Español</span>
+          <span class="flag" aria-hidden="true">🇪🇸</span>
         </button>
+
         <a class="language-button events-button" href="eventos.html">
-          <span aria-hidden="true">▦</span><span>Eventos / Events</span>
+          <span aria-hidden="true">▦</span>
+          <span>Eventos / Events</span>
         </a>
       </div>
     </section>
 
     <section id="information" class="hidden">
       <h1 id="subtitle"></h1>
+
       <div class="images">
         <img id="hotelImage" src="" alt="Informações do hotel">
+
         <img id="restaurantImage" src="" alt="Informações do restaurante">
-        <a id="restaurantDownload" class="download-link" href="carta_rest.pdf" download>Descarregue a carta</a>
+
+        <a
+          id="restaurantDownload"
+          class="download-link"
+          href="carta_rest.pdf"
+          download
+        >Descarregue a carta</a>
+
         <img id="gymImage" src="" alt="Informações do ginásio">
-        <a id="spaDownload" class="download-link" href="carta_spa.pdf" download>Descarregue a lista de massagens</a>
+
+        <a
+          id="spaDownload"
+          class="download-link"
+          href="carta_spa.pdf"
+          download
+        >Descarregue a lista de massagens</a>
       </div>
-      <button class="back-button" id="backButton" onclick="showMenu()">← Escolher outro idioma</button>
+
+      <button
+        class="back-button"
+        id="backButton"
+        onclick="showMenu()"
+      >← Escolher outro idioma</button>
     </section>
   </main>
 
@@ -260,6 +491,7 @@
         restaurantAlt: "Informações do restaurante em português",
         gymAlt: "Informações do ginásio em português"
       },
+
       en: {
         subtitle: "Guest information",
         hotel: "info-en.png",
@@ -272,6 +504,7 @@
         restaurantAlt: "Restaurant information in English",
         gymAlt: "Gym information in English"
       },
+
       fr: {
         subtitle: "Informations pour les clients",
         hotel: "info-fr.png",
@@ -284,6 +517,7 @@
         restaurantAlt: "Informations du restaurant en français",
         gymAlt: "Informations de la salle de sport en français"
       },
+
       es: {
         subtitle: "Información para huéspedes",
         hotel: "info-es.png",
@@ -308,12 +542,19 @@
 
       document.getElementById("hotelImage").src = selected.hotel;
       document.getElementById("hotelImage").alt = selected.hotelAlt;
+
       document.getElementById("restaurantImage").src = selected.restaurant;
       document.getElementById("restaurantImage").alt = selected.restaurantAlt;
+
       document.getElementById("gymImage").src = selected.gym;
       document.getElementById("gymImage").alt = selected.gymAlt;
-      document.getElementById("restaurantDownload").textContent = selected.restaurantDownload;
-      document.getElementById("spaDownload").textContent = selected.spaDownload;
+
+      document.getElementById("restaurantDownload").textContent =
+        selected.restaurantDownload;
+
+      document.getElementById("spaDownload").textContent =
+        selected.spaDownload;
+
       document.getElementById("backButton").textContent = selected.back;
 
       document.documentElement.lang = language;
@@ -327,42 +568,62 @@
       window.scrollTo(0, 0);
     }
   </script>
+
   <script>
-  const WORKER_URL = "https://chamar-rececao.rececaoparaiso1995.workers.dev";
-  const ESPERA_MS = 1 * 60 * 1000; // 2 minutos entre chamadas
+    const WORKER_URL =
+      "https://chamar-rececao.rececaoparaiso1995.workers.dev";
 
-  const botao = document.getElementById("rececao-botao");
-  const estado = document.getElementById("rececao-estado");
-  const campoQuarto = document.getElementById("rececao-quarto");
+    const ESPERA_MS = 1 * 60 * 1000; // Intervalo de 1 minuto
 
-  botao.addEventListener("click", async () => {
-    let ultima = 0;
-    try { ultima = Number(localStorage.getItem("rececao-ultima") || 0); } catch (e) {}
+    const botao = document.getElementById("rececao-botao");
+    const estado = document.getElementById("rececao-estado");
+    const campoQuarto = document.getElementById("rececao-quarto");
 
-    if (Date.now() - ultima < ESPERA_MS) {
-      estado.textContent = "Já chamámos a receção. Aguarde um momento, por favor.";
-      return;
-    }
+    botao.addEventListener("click", async () => {
+      let ultima = 0;
 
-    botao.disabled = true;
-    estado.textContent = "A enviar...";
+      try {
+        ultima = Number(localStorage.getItem("rececao-ultima") || 0);
+      } catch (e) {}
 
-    try {
-      const r = await fetch(WORKER_URL, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ quarto: campoQuarto.value }),
-      });
-      if (!r.ok) throw new Error("erro " + r.status);
-      try { localStorage.setItem("rececao-ultima", String(Date.now())); } catch (e) {}
-      estado.textContent = "✅ Já avisámos a receção. Aguarde um momento, por favor.";
-    } catch (e) {
-      estado.textContent = "Não foi possível avisar (" + e.message + "). Por favor, tente novamente dentro de instantes.";
-    }
+      if (Date.now() - ultima < ESPERA_MS) {
+        estado.textContent =
+          "Já chamámos a receção. Aguarde um momento, por favor.";
+        return;
+      }
 
-    setTimeout(() => { botao.disabled = false; }, 5000);
-  });
-</script>
+      botao.disabled = true;
+      estado.textContent = "A enviar...";
+
+      try {
+        const r = await fetch(WORKER_URL, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            quarto: campoQuarto.value
+          })
+        });
+
+        if (!r.ok) throw new Error("erro " + r.status);
+
+        try {
+          localStorage.setItem("rececao-ultima", String(Date.now()));
+        } catch (e) {}
+
+        estado.textContent =
+          "✅ Já avisámos a receção. Aguarde um momento, por favor.";
+
+      } catch (e) {
+        estado.textContent =
+          "Não foi possível avisar (" + e.message +
+          "). Por favor, tente novamente dentro de instantes.";
+      }
+
+      setTimeout(() => {
+        botao.disabled = false;
+      }, 5000);
+    });
+  </script>
 
 </body>
 </html>
