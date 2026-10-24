@@ -1,0 +1,178 @@
+
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Eventos Especiais | Paraíso Villas & Spa</title>
+
+  <style>
+    :root {
+      --terracotta: #a96850;
+      --terracotta-dark: #89513e;
+      --background: #f8f5f0;
+      --text: #403a35;
+      --muted: #776e66;
+      --white: #ffffff;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--background);
+      color: var(--text);
+    }
+
+    header {
+      text-align: center;
+      padding: 38px 20px 24px;
+    }
+
+    h1 {
+      margin: 0 0 12px;
+      font-size: clamp(27px, 5vw, 38px);
+      font-weight: 500;
+      letter-spacing: 1px;
+    }
+
+    .intro {
+      max-width: 650px;
+      margin: 0 auto;
+      color: var(--muted);
+      line-height: 1.7;
+      font-size: 16px;
+    }
+
+    main {
+      width: min(100% - 32px, 900px);
+      margin: 0 auto;
+      padding: 10px 0 40px;
+    }
+
+    .events-container {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 22px;
+    }
+
+    .event-card {
+      background: var(--white);
+      border: 1px solid #e7ddd5;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .event-card img {
+      display: block;
+      width: 100%;
+      height: auto;
+      max-height: 520px;
+      object-fit: contain;
+      background: #eee8e1;
+    }
+
+    .event-description {
+      padding: 18px 20px;
+    }
+
+    .event-description h2 {
+      margin: 0;
+      color: var(--terracotta-dark);
+      font-size: 21px;
+      font-weight: 500;
+    }
+
+    .event-description p {
+      margin: 10px 0 0;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .back-button {
+      display: block;
+      width: fit-content;
+      margin: 30px auto 0;
+      padding: 13px 24px;
+      border: 1px solid var(--terracotta);
+      border-radius: 6px;
+      color: var(--terracotta-dark);
+      text-decoration: none;
+      text-align: center;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .back-button:hover {
+      background: var(--terracotta);
+      color: var(--white);
+    }
+
+    footer {
+      padding: 20px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 13px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <h1>Eventos Especiais</h1>
+
+    <p class="intro">
+      No Paraíso Villas & Spa, cada ocasião pode tornar-se
+      num momento especial. Descubra as nossas propostas
+      e inspire-se para o seu próximo evento.
+    </p>
+  </header>
+
+  <main>
+    <section class="events-container">
+
+      <!--
+        MODELO DE EVENTO
+
+        Quando tiveres uma fotografia, coloca-a dentro da pasta
+        eventos_especiais e substitui "fotografia.jpg" pelo nome
+        exato do ficheiro.
+
+        Podes duplicar este bloco para adicionar mais eventos.
+      -->
+
+      <article class="event-card">
+        <img
+          src="fotografia.jpg"
+          alt="Evento especial no Paraíso Villas & Spa"
+          hidden
+        >
+
+        <div class="event-description">
+          <h2>Em breve</h2>
+          <p>
+            Estamos a preparar esta secção para partilhar
+            fotografias e informações sobre os nossos eventos
+            especiais.
+          </p>
+        </div>
+      </article>
+
+    </section>
+
+    <a class="back-button" href="../index.html">
+      Voltar à página inicial
+    </a>
+  </main>
+
+  <footer>
+    Paraíso Villas & Spa
+  </footer>
+
+</body>
+</html>
+
