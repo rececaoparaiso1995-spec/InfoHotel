@@ -1,9 +1,8 @@
-
 <!DOCTYPE html>
 <html lang="pt">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <title>Eventos Especiais | Paraíso Villas & Spa</title>
 
@@ -45,7 +44,6 @@
       margin: 0 auto;
       color: var(--muted);
       line-height: 1.7;
-      font-size: 16px;
     }
 
     main {
@@ -54,43 +52,45 @@
       padding: 10px 0 40px;
     }
 
-    .events-container {
+    #gallery {
       display: grid;
       grid-template-columns: 1fr;
       gap: 22px;
     }
 
     .event-card {
+      overflow: hidden;
       background: var(--white);
       border: 1px solid #e7ddd5;
       border-radius: 12px;
-      overflow: hidden;
     }
 
     .event-card img {
       display: block;
       width: 100%;
       height: auto;
-      max-height: 520px;
+      max-height: 650px;
       object-fit: contain;
       background: #eee8e1;
     }
 
     .event-description {
-      padding: 18px 20px;
+      padding: 16px 20px;
     }
 
     .event-description h2 {
       margin: 0;
       color: var(--terracotta-dark);
-      font-size: 21px;
+      font-size: 20px;
       font-weight: 500;
+      overflow-wrap: anywhere;
     }
 
-    .event-description p {
-      margin: 10px 0 0;
+    .status {
+      text-align: center;
+      padding: 24px 12px;
       color: var(--muted);
-      line-height: 1.7;
+      line-height: 1.6;
     }
 
     .back-button {
@@ -121,10 +121,8 @@
 </head>
 
 <body>
-
   <header>
     <h1>Eventos Especiais</h1>
-
     <p class="intro">
       No Paraíso Villas & Spa, cada ocasião pode tornar-se
       num momento especial. Descubra as nossas propostas
@@ -133,35 +131,8 @@
   </header>
 
   <main>
-    <section class="events-container">
-
-      <!--
-        MODELO DE EVENTO
-
-        Quando tiveres uma fotografia, coloca-a dentro da pasta
-        eventos_especiais e substitui "fotografia.jpg" pelo nome
-        exato do ficheiro.
-
-        Podes duplicar este bloco para adicionar mais eventos.
-      -->
-
-      <article class="event-card">
-        <img
-          src="fotografia.jpg"
-          alt="Evento especial no Paraíso Villas & Spa"
-          hidden
-        >
-
-        <div class="event-description">
-          <h2>Em breve</h2>
-          <p>
-            Estamos a preparar esta secção para partilhar
-            fotografias e informações sobre os nossos eventos
-            especiais.
-          </p>
-        </div>
-      </article>
-
+    <section id="gallery">
+      <p class="status">A procurar fotografias...</p>
     </section>
 
     <a class="back-button" href="../index.html">
@@ -169,10 +140,94 @@
     </a>
   </main>
 
-  <footer>
-    Paraíso Villas & Spa
-  </footer>
+  <footer>Paraíso Villas & Spa</footer>
 
+  <script>
+    const owner = "rececaoparaiso1995-spec";
+    const repo = "InfoHotel";
+    const folder = "eventos_especiais";
+    const gallery = document.getElementById("gallery");
+
+    const imageExtensions = [
+      ".jpg", ".jpeg", ".png", ".webp", ".gif"
+    ];
+
+    async function loadImages() {
+      try {
+        const apiUrl =
+          `https://api.github.com/repos/${owner}/${repo}/contents/${folder}`;
+
+        const response = await fetch(apiUrl, {
+          headers: {
+            "Accept": "application/vnd.github+json"
+          }
+        });
+
+        if (!response.ok) {
+          throw new Error("Não foi possível consultar a pasta.");
+        }
+
+        const files = await response.json();
+
+        const images = files
+          .filter(file =>
+            file.type === "file" &&
+            imageExtensions.some(ext =>
+              file.name.toLowerCase().endsWith(ext)
+            )
+          )
+          .sort((a, b) =>
+            a.name.localeCompare(b.name, "pt",
+              { numeric: true, sensitivity: "base" })
+          );
+
+        gallery.innerHTML = "";
+
+        if (images.length === 0) {
+          gallery.innerHTML = `
+            <p class="status">
+              Ainda não existem fotografias nesta secção.
+              Volte mais tarde para descobrir os nossos eventos.
+            </p>
+          `;
+          return;
+        }
+
+        images.forEach(file => {
+          const card = document.createElement("article");
+          card.className = "event-card";
+
+          const img = document.createElement("img");
+          img.src = file.download_url;
+          img.alt = file.name.replace(/\.[^.]+$/, "")
+            .replace(/[_-]+/g, " ");
+          img.loading = "lazy";
+
+          const description = document.createElement("div");
+          description.className = "event-description";
+
+          const title = document.createElement("h2");
+          title.textContent = file.name
+            .replace(/\.[^.]+$/, "")
+            .replace(/[_-]+/g, " ");
+
+          description.appendChild(title);
+          card.appendChild(img);
+          card.appendChild(description);
+          gallery.appendChild(card);
+        });
+
+      } catch (error) {
+        gallery.innerHTML = `
+          <p class="status">
+            Não foi possível carregar as fotografias.
+            Verifique a ligação à Internet e tente novamente.
+          </p>
+        `;
+      }
+    }
+
+    loadImages();
+  </script>
 </body>
 </html>
-
