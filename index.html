@@ -466,6 +466,10 @@
         <a href="eventos_especiais/index.html" class="download-link special-events-button">
           Eventos Especiais
         </a>
+        <a href="#" id="executiveMenuLink" class="download-link special-events-button"
+           onclick="return verificarMenuExecutivo(event)">
+          Ver Menu Executivo
+        </a>
       </div>
     </section>
 
@@ -626,6 +630,25 @@
       document.documentElement.lang = "pt";
       window.scrollTo(0, 0);
     }
+    function verificarMenuExecutivo(event) {
+  const dia = new Date().getDay();
+
+  if (dia === 0 || dia === 1 || dia === 6) {
+    event.preventDefault();
+
+    alert(
+      "Menu Executivo\n\n" +
+      "Informamos que o Menu Executivo está disponível " +
+      "de terça-feira a sexta-feira.\n\n" +
+      "Obrigado pela compreensão."
+    );
+
+    return false;
+  }
+
+  window.open("Redes%20Sociais.png", "_blank");
+  return false;
+}
   </script>
 
   <script>
